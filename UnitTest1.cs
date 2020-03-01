@@ -7,12 +7,15 @@ namespace addressbook_tests
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]
-        public void Test1()
+        public void TestKatya()
         {
-            Assert.Pass();
+
+            Assert.That(2 == 4);
         }
+
     }
 }

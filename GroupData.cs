@@ -14,7 +14,7 @@ namespace addressbook_tests
             this.name = name;
         }
 
-        // These are properties:
+        // These are properties: 
         public string Name
         {
             get

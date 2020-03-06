@@ -9,10 +9,8 @@ using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_tests
 {
-    public class CreateNewContactTests
-    {
         [TestFixture]
-        public class CreateNewContact
+        public class CreateNewContactTests
         {
             private IWebDriver driver;
             private StringBuilder verificationErrors;
@@ -42,7 +40,7 @@ namespace addressbook_tests
             }
 
             [Test]
-            public void TheUntitledTestCaseTest()
+            public void CreateNewContactTest()
             {
                 OpenHomePage();
                 Login(new AccountData("admin", "secret"));
@@ -146,5 +144,4 @@ namespace addressbook_tests
                 }
             }
         }
-    }
 }

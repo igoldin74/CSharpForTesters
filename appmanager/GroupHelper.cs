@@ -4,17 +4,27 @@ namespace addressbook_tests
     public class GroupHelper : HelperBase
     {
 
-        public GroupHelper(IWebDriver driver) : base(driver)
+        public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }
 
+        public GroupHelper Create(GroupData group)
+        {
+            manager.NavigationHelper.OpenGroupsPage();
+            InitGroupCreation();
+            FillOutGroupData(group);
+            SubmitGroupCreation();
+            return this;
 
-        public void SubmitGroupCreation()
+        }
+
+        public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
 
-        public void FillOutGroupData(GroupData group)
+        public GroupHelper FillOutGroupData(GroupData group)
         {
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
@@ -23,11 +33,13 @@ namespace addressbook_tests
             driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
             driver.FindElement(By.Name("group_footer")).Clear();
             driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            return this;
         }
 
-        public void InitGroupCreation()
+        public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
+            return this;
         }
     }
 }

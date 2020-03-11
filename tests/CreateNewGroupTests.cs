@@ -11,17 +11,14 @@ namespace addressbook_tests
         [Test]
         public void CreateNewGroup()
         {
-            navigationHelper.OpenHomePage();
-            sessionHelper.Login(new AccountData("admin", "secret"));
-            navigationHelper.OpenGroupsPage();
-            groupHelper.InitGroupCreation();
+            app.NavigationHelper.OpenHomePage();
+            app.SessionHelper.Login(new AccountData("admin", "secret"));
             GroupData group = new GroupData("Group_Name_Super");
-            group.Header = "Super_Header";
-            group.Footer = "Super_Footer";
-            groupHelper.FillOutGroupData(group);
-            groupHelper.SubmitGroupCreation();
-            navigationHelper.OpenGroupsPage();
-            sessionHelper.Logout();
+            group.Header = "test939e4";
+            group.Footer = "dsjdfd";
+            app.GroupHelper.Create(group);
+            app.NavigationHelper.OpenGroupsPage();
+            app.SessionHelper.Logout();
         }
 
     }

@@ -1,37 +1,23 @@
-﻿using System.Text;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using NUnit.Framework;
 
 namespace addressbook_tests
 {
     public class TestBase
     {
-        private IWebDriver driver;
-        private StringBuilder verificationErrors;
-        private string baseURL;
-
-        protected SessionHelper sessionHelper;
-        protected NavigationHelper navigationHelper;
-        protected ContactHelper contactHelper;
-        protected GroupHelper groupHelper;
+        protected ApplicationManager app;
 
         [SetUp]
         public void Setup()
         {
-            driver = new ChromeDriver();
-            baseURL = "http://localhost/addressbook/";
-            verificationErrors = new StringBuilder();
-            sessionHelper = new SessionHelper(driver);
-            navigationHelper = new NavigationHelper(driver, baseURL);
-            contactHelper = new ContactHelper(driver);
-            groupHelper = new GroupHelper(driver);
+            app = new ApplicationManager();
+            app.NavigationHelper.OpenHomePage();
+
         }
 
         [TearDown]
         public void Teardown()
         {
-            driver.Quit();
+            app.Stop();
         }
     
     }

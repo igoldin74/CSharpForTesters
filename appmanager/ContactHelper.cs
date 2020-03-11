@@ -5,27 +5,30 @@ namespace addressbook_tests
     public class ContactHelper : HelperBase
     {
 
-        public ContactHelper(IWebDriver driver) : base(driver)
+        public ContactHelper(ApplicationManager manager) : base(manager)
         {
         }
 
-        public void SubmitNewContactForm()
+        public ContactHelper SubmitNewContactForm()
         {
             driver.FindElements(By.CssSelector("[name = 'submit']"))[1].Click();
+            return this;
         }
 
-        public void FillOutNewContactForm(ContactData contact)
+        public ContactHelper FillOutNewContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(contact.FirstName);
+            return this;
         }
 
-        public void InitContactCreation()
+        public ContactHelper InitContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
     }
 }

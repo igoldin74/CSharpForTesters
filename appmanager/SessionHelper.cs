@@ -5,7 +5,7 @@ namespace addressbook_tests
     public class SessionHelper : HelperBase
     {
 
-        public SessionHelper(IWebDriver driver) : base(driver)
+        public SessionHelper(ApplicationManager manager) : base(manager)
         {
         }
 

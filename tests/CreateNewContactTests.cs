@@ -6,19 +6,17 @@ namespace addressbook_tests
         [TestFixture]
         public class CreateNewContactTests : TestBase
         {
-            
-
             [Test]
             public void CreateNewContactTest()
             {
-                navigationHelper.OpenHomePage();
-                sessionHelper.Login(new AccountData("admin", "secret"));
-                contactHelper.InitContactCreation();
+                app.SessionHelper.Login(new AccountData("admin", "secret"));
                 ContactData newContact = new ContactData("test_f_name", "test_l_name");
-                contactHelper.FillOutNewContactForm(newContact);
-                contactHelper.SubmitNewContactForm();
-                navigationHelper.ClickOnHomePageLink();
-                sessionHelper.Logout();
+                app.ContactHelper.
+                        InitContactCreation().
+                        FillOutNewContactForm(newContact).
+                        SubmitNewContactForm();
+                app.NavigationHelper.ClickOnHomePageLink();
+                app.SessionHelper.Logout();
              }
 
         }

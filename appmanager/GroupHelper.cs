@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 namespace addressbook_tests
 {
     public class GroupHelper : HelperBase
@@ -39,6 +40,31 @@ namespace addressbook_tests
         public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectRandomGroup()
+        {
+            var elements = driver.FindElements(By.Name("selected[]"));
+            elements[new Random().Next(elements.Count)].Click();
+            return this;
+        }
+
+        public GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+
+        public GroupHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public GroupHelper RemoveSelectedGroup()
+        {
+            driver.FindElement(By.Name("delete")).Click();
             return this;
         }
     }

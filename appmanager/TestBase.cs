@@ -10,7 +10,7 @@ namespace addressbook_tests
         public void Setup()
         {
             app = new ApplicationManager();
-            app.NavigationHelper.OpenHomePage();
+            app.NavigationHelper.OpenLoginPage();
 
         }
 

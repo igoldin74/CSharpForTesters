@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 
 namespace addressbook_tests
 {
@@ -15,13 +16,42 @@ namespace addressbook_tests
             return this;
         }
 
-        public ContactHelper FillOutNewContactForm(ContactData contact)
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElements(By.CssSelector("[name = 'update']"))[1].Click();
+            return this;
+        }
+
+        public ContactHelper FillOutContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
+            driver.FindElement(By.Name("lastname")).Click();
             driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.FirstName);
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
+            return this;
+        }
+
+        public ContactHelper InitRandomContactModification()
+        {
+            var elements = driver.FindElements(By.XPath("//a[contains(@href, 'edit.php?id')]"));
+            elements[new Random().Next(elements.Count)].Click();
+            return this;
+        }
+
+        public ContactHelper SelectRandomContact()
+        {
+            var elements = driver.FindElements(By.Name("selected[]"));
+            elements[new Random().Next(elements.Count)].Click();
+            return this;
+        }
+
+        public ContactHelper DeleteRandomContact()
+        {
+            SelectRandomContact();
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
             return this;
         }
 

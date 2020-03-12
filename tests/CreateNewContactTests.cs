@@ -13,7 +13,7 @@ namespace addressbook_tests
                 ContactData newContact = new ContactData("test_f_name", "test_l_name");
                 app.ContactHelper.
                         InitContactCreation().
-                        FillOutNewContactForm(newContact).
+                        FillOutContactForm(newContact).
                         SubmitNewContactForm();
                 app.NavigationHelper.ClickOnHomePageLink();
                 app.SessionHelper.Logout();

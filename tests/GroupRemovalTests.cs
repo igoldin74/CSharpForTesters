@@ -1,26 +1,21 @@
 ﻿using NUnit.Framework;
 
-
-namespace addressbook_tests
+namespace addressbook_tests.tests
 {
     [TestFixture]
-    public class CreateNewGroupTests : TestBase
+    public class GroupRemovalTests : TestBase
     {
-
-
         [Test]
-        public void CreateNewGroup()
+        public void TestRandomGroupRemoval()
         {
             app.NavigationHelper.OpenLoginPage();
             app.SessionHelper.Login(new AccountData("admin", "secret"));
-            GroupData group = new GroupData("Group_Name_Super");
-            group.Header = "test939e4";
-            group.Footer = "dsjdfd";
-            app.GroupHelper.Create(group);
             app.NavigationHelper.OpenGroupsPage();
+            app.GroupHelper.
+                SelectRandomGroup().
+                RemoveSelectedGroup();
             app.SessionHelper.Logout();
         }
 
     }
 }
-

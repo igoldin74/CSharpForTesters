@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 

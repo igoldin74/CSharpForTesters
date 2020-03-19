@@ -10,7 +10,7 @@ namespace addressbook_tests
         [SetUp]
         public void Setup()
         {
-            app = TestSuiteFixture.app;
+            app = ApplicationManager.GetInstance();
             app.NavigationHelper.OpenHomePage();
 
         }

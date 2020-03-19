@@ -8,20 +8,20 @@ namespace addressbook_tests
     public class TestSuiteFixture
     {
         // Global (static) variable ApplicationManager:
-        public static ApplicationManager app;
+        // public static ApplicationManager app;
 
         [OneTimeSetUp]
         public void InitAppManager()
         {
-            app = new ApplicationManager();
+            ApplicationManager app = ApplicationManager.GetInstance();
             app.SessionHelper.Login(new AccountData("admin", "secret"));
         }
 
         [OneTimeTearDown]
         public void StopAppManager()
         {
-            app.SessionHelper.Logout();
-            app.Stop();
+            ApplicationManager.GetInstance().SessionHelper.Logout();
+            ApplicationManager.GetInstance().Stop();
 
         }
     }

@@ -12,7 +12,7 @@ namespace addressbook_tests
             this.baseURL = manager.BaseURL;
         }
 
-        public void OpenLoginPage()
+        public void OpenHomePage()
         {
             driver.Navigate().GoToUrl(baseURL);
         }

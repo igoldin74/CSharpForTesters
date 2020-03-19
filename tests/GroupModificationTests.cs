@@ -8,8 +8,6 @@ namespace addressbook_tests.tests
         [Test]
         public void TestModifyRandomGroup()
         {
-            app.NavigationHelper.OpenLoginPage();
-            app.SessionHelper.Login(new AccountData("admin", "secret"));
             app.NavigationHelper.OpenGroupsPage();
             GroupData modifiedGroup = new GroupData("modified_group");
             modifiedGroup.Header = "modified_header";
@@ -19,7 +17,6 @@ namespace addressbook_tests.tests
                 InitGroupModification().
                 FillOutGroupData(modifiedGroup).
                 SubmitGroupModification();
-            app.SessionHelper.Logout();
         }
         
 

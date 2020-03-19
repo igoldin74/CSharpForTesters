@@ -9,14 +9,12 @@ namespace addressbook_tests
             [Test]
             public void CreateNewContactTest()
             {
-                app.SessionHelper.Login(new AccountData("admin", "secret"));
                 ContactData newContact = new ContactData("test_f_name", "test_l_name");
                 app.ContactHelper.
                         InitContactCreation().
                         FillOutContactForm(newContact).
                         SubmitNewContactForm();
                 app.NavigationHelper.ClickOnHomePageLink();
-                app.SessionHelper.Logout();
              }
 
         }

@@ -11,6 +11,7 @@ namespace addressbook_tests
 
         public void Login(AccountData account)
         {
+            manager.NavigationHelper.OpenHomePage();
             Type(By.Name("user"), account.Username);
             Type(By.Name("pass"), account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();

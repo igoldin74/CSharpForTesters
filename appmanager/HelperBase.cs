@@ -21,5 +21,6 @@ namespace addressbook_tests
                 driver.FindElement(locator).SendKeys(text);
             }
         }
+
     }
 }

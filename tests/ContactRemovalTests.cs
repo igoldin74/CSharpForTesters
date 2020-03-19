@@ -8,9 +8,8 @@ namespace addressbook_tests.tests
         [Test]
         public void TestRemoveRandomContact()
         {
-            app.NavigationHelper.OpenLoginPage();
-            app.SessionHelper.Login(new AccountData("admin", "secret"));
-            app.NavigationHelper.ClickOnHomePageLink();
+
+            
             app.ContactHelper.DeleteRandomContact();
         }
     }

@@ -6,18 +6,13 @@ namespace addressbook_tests
     {
         protected ApplicationManager app;
 
+        // [SetUp] = Operation before each test:
         [SetUp]
         public void Setup()
         {
-            app = new ApplicationManager();
-            app.NavigationHelper.OpenLoginPage();
+            app = TestSuiteFixture.app;
+            app.NavigationHelper.OpenHomePage();
 
-        }
-
-        [TearDown]
-        public void Teardown()
-        {
-            app.Stop();
         }
     
     }

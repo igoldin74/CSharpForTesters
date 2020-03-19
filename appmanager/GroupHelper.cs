@@ -63,5 +63,10 @@ namespace addressbook_tests
             driver.FindElement(By.Name("delete")).Click();
             return this;
         }
+
+        public bool AreThereGroups()
+        {
+            return AreElementsPresent(By.Name("selected[]"));
+        }
     }
 }

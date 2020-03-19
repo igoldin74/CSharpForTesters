@@ -56,5 +56,10 @@ namespace addressbook_tests
             driver.FindElement(By.LinkText("add new")).Click();
             return this;
         }
+
+        public bool AreThereContacts()
+        {
+            return AreElementsPresent(By.Name("selected[]"));
+        }
     }
 }

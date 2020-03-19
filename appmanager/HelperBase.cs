@@ -35,5 +35,14 @@ namespace addressbook_tests
             }
         }
 
+        public bool AreElementsPresent(By by)
+        {
+            if (driver.FindElements(by).Count > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

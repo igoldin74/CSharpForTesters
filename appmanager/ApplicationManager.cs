@@ -13,6 +13,7 @@ namespace addressbook_tests
         private NavigationHelper navigationHelper;
         private ContactHelper contactHelper;
         private GroupHelper groupHelper;
+
         // Storage for our thread designated application manager object:
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -27,7 +28,7 @@ namespace addressbook_tests
         private ApplicationManager()
         {
             driver = new ChromeDriver();
-            baseURL = "http://localhost/addressbook";
+            baseURL = "http://localhost";
             sessionHelper = new SessionHelper(this);
             navigationHelper = new NavigationHelper(this);
             contactHelper = new ContactHelper(this);
@@ -62,6 +63,7 @@ namespace addressbook_tests
 
         // Destructor method. Called for each ApplicationManager object.
         // Currently there's a bug in Selenium code that fails to call Quit() or Dispose() method from destructor.
+        //
         //~ApplicationManager()
         //{
         //    SessionHelper.Logout();

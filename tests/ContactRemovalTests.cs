@@ -8,8 +8,16 @@ namespace addressbook_tests.tests
         [Test]
         public void TestRemoveRandomContact()
         {
-
-            
+            app.NavigationHelper.ClickOnHomePageLink();
+            if (!app.ContactHelper.AreThereContacts())
+            {
+                ContactData newContact = new ContactData("new_contact", "trrdfgfd");
+                app.ContactHelper.
+                       InitContactCreation().
+                       FillOutContactForm(newContact).
+                       SubmitNewContactForm();
+            }
+            app.NavigationHelper.ClickOnHomePageLink();
             app.ContactHelper.DeleteRandomContact();
         }
     }

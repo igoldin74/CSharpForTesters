@@ -46,13 +46,16 @@ namespace addressbook_tests
             }
         }
 
+
         // Public method to be used in TestSuiteFixture where we initialize
         // application manager using our private constructor:
         public static ApplicationManager GetInstance()
         {
             if (! app.IsValueCreated)
             {
-                app.Value = new ApplicationManager();
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.NavigationHelper.OpenHomePage();
+                app.Value = newInstance;
             }
             return app.Value;
         }

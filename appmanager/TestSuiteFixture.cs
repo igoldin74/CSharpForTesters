@@ -1,22 +1,12 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace addressbook_tests
 {
-    // [SetUpFixture] = Operation before each test suite:
+    // [SetUpFixture] = Operation before each test suit - to be removed when Selenium destructor bug will get addressed.
     [SetUpFixture]
     public class TestSuiteFixture
     {
-        // Global (static) variable ApplicationManager:
-        // public static ApplicationManager app;
-
-        [OneTimeSetUp]
-        public void InitAppManager()
-        {
-            ApplicationManager app = ApplicationManager.GetInstance();
-            app.SessionHelper.Login(new AccountData("admin", "secret"));
-        }
-
+        // Used in place of destructor until further notice.
         [OneTimeTearDown]
         public void StopAppManager()
         {

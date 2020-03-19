@@ -3,7 +3,7 @@
 namespace addressbook_tests.tests
 {
     [TestFixture]
-    public class GroupModificationTests : TestBase
+    public class GroupModificationTests : AuthTestBase
     {
         [Test]
         public void TestModifyRandomGroup()

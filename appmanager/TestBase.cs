@@ -8,12 +8,10 @@ namespace addressbook_tests
 
         // [SetUp] = Operation before each test:
         [SetUp]
-        public void Setup()
+        public void SetupAppManager()
         {
             app = ApplicationManager.GetInstance();
-            app.NavigationHelper.OpenHomePage();
-
         }
-    
+
     }
 }

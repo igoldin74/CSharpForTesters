@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OpenQA.Selenium;
 namespace addressbook_tests
 {
@@ -46,6 +47,12 @@ namespace addressbook_tests
             return this;
         }
 
+        public GroupHelper SelectGroupByIndex(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
         public GroupHelper InitGroupModification()
         {
             driver.FindElement(By.Name("edit")).Click();
@@ -67,6 +74,17 @@ namespace addressbook_tests
         public bool AreThereGroups()
         {
             return AreElementsPresent(By.Name("selected[]"));
+        }
+
+        public List<GroupData> GetGroups()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace addressbook_tests
@@ -36,6 +37,13 @@ namespace addressbook_tests
             return this;
         }
 
+        public ContactHelper InitContactModificationByIndex(int index)
+        {
+            var elements = driver.FindElements(By.XPath("//a[contains(@href, 'edit.php?id')]"));
+            elements[index].Click();
+            return this;
+        }
+
         public ContactHelper SelectRandomContact()
         {
             var elements = driver.FindElements(By.Name("selected[]"));
@@ -43,9 +51,24 @@ namespace addressbook_tests
             return this;
         }
 
+        public ContactHelper SelectContactByIndex(int index)
+        {
+            var elements = driver.FindElements(By.Name("selected[]"));
+            elements[index].Click();
+            return this;
+        }
+
         public ContactHelper DeleteRandomContact()
         {
             SelectRandomContact();
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        public ContactHelper DeleteContactByIndex(int index)
+        {
+            SelectContactByIndex(index);
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             return this;
@@ -60,6 +83,18 @@ namespace addressbook_tests
         public bool AreThereContacts()
         {
             return AreElementsPresent(By.Name("selected[]"));
+        }
+
+        public List<ContactData> GetContacts()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                var cells = element.FindElements(By.TagName("td"));
+                contacts.Add(new ContactData(cells[2].Text, cells[1].Text));
+            }
+            return contacts;
         }
     }
 }

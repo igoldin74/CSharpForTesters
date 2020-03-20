@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
 namespace addressbook_tests.tests
 {
@@ -18,7 +19,14 @@ namespace addressbook_tests.tests
                        SubmitNewContactForm();
             }
             app.NavigationHelper.ClickOnHomePageLink();
-            app.ContactHelper.DeleteRandomContact();
+            List<ContactData> oldContacts = app.ContactHelper.GetContacts();
+            app.ContactHelper.DeleteContactByIndex(1);
+            app.NavigationHelper.ClickOnHomePageLink();
+            List<ContactData> newContacts = app.ContactHelper.GetContacts();
+            oldContacts.RemoveAt(1);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

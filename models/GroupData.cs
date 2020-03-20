@@ -1,19 +1,51 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace addressbook_tests
 {
-    public class GroupData
+    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
+        public bool Equals([AllowNull] GroupData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Name == other.Name;
+        }
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return Name.ToString();
+        }
+
+        public int CompareTo([AllowNull] GroupData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return Name.CompareTo(other.Name);
+
+        }
+
         // These are fields:
         private string name;
         private string header;
         private string footer;
-
         // This is constructor:
         public GroupData(string name)
         {
             this.name = name;
         }
-
         // These are properties: 
         public string Name
         {
@@ -50,5 +82,10 @@ namespace addressbook_tests
                 footer = value;
             }
         }
+
     }
 }
+
+
+
+

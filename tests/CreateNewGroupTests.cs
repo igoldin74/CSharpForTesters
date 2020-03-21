@@ -27,6 +27,14 @@ namespace addressbook_tests
             newGroups.Sort();
 
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData g in newGroups)
+            {
+                if (g.Name == group.Name)
+                {
+                    Assert.Pass("Name of the new group exists in the group list");
+                }
+            }
         }
 
     }

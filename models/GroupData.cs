@@ -5,6 +5,12 @@ namespace addressbook_tests
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
+        // These are fields:
+        private string name;
+        private string header;
+        private string footer;
+
+        //Class methods:
         public bool Equals([AllowNull] GroupData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -21,12 +27,10 @@ namespace addressbook_tests
         {
             return Name.GetHashCode();
         }
-
         public override string ToString()
         {
             return Name.ToString();
         }
-
         public int CompareTo([AllowNull] GroupData other)
         {
             if (Object.ReferenceEquals(other, null))
@@ -37,15 +41,12 @@ namespace addressbook_tests
 
         }
 
-        // These are fields:
-        private string name;
-        private string header;
-        private string footer;
         // This is constructor:
         public GroupData(string name)
         {
             this.name = name;
         }
+
         // These are properties: 
         public string Name
         {
@@ -82,6 +83,9 @@ namespace addressbook_tests
                 footer = value;
             }
         }
+
+        // Auto-property (private field is unnecessary):
+        public int Id { get; set; }
 
     }
 }

@@ -7,7 +7,7 @@ namespace addressbook_tests.tests
     public class GroupRemovalTests : AuthTestBase
     {
         [Test]
-        public void TestRandomGroupRemoval()
+        public void TestGroupRemoval()
         {
             var oldGroups = app.GroupHelper.GetGroups();
             int oldGroupsCount = oldGroups.Count;
@@ -29,11 +29,17 @@ namespace addressbook_tests.tests
             Assert.AreEqual(oldGroupsCount - 1, app.GroupHelper.GetGroupCount());
 
             var newGroups = app.GroupHelper.GetGroups();
+            GroupData toBeRemoved = oldGroups[index];
             oldGroups.RemoveAt(index);
             oldGroups.Sort();
             newGroups.Sort();
 
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group in newGroups)
+            {
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+            }
         }
 
     }

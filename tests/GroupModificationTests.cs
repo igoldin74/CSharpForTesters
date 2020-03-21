@@ -26,6 +26,7 @@ namespace addressbook_tests.tests
             GroupData modifiedGroup = new GroupData("modified_group");
             modifiedGroup.Header = "modified_header";
             modifiedGroup.Footer = "modified_footer";
+            GroupData groupToBeModified = oldGroups[index];
 
             app.GroupHelper.
                 SelectGroupByIndex(index).
@@ -42,6 +43,15 @@ namespace addressbook_tests.tests
             newGroups.Sort();
 
             Assert.AreEqual(oldGroups, newGroups);
+
+            //Extra assertion:
+            foreach (GroupData group in newGroups)
+            {
+                if (group.Id == groupToBeModified.Id)
+                {
+                    Assert.AreEqual(group.Name, groupToBeModified.Name);
+                }
+            }
         }
         
     }

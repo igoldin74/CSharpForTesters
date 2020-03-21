@@ -11,15 +11,19 @@ namespace addressbook_tests
             {
                 var oldContacts = app.ContactHelper.GetContacts();
                 ContactData newContact = new ContactData("test_f_name", "test_l_name");
+
                 app.ContactHelper.
                         InitContactCreation().
                         FillOutContactForm(newContact).
                         SubmitNewContactForm();
-                app.NavigationHelper.ClickOnHomePageLink();
+
+                Assert.AreEqual(oldContacts.Count + 1, app.ContactHelper.GetContactCount());
+
                 var newContacts = app.ContactHelper.GetContacts();
                 oldContacts.Add(newContact);
                 oldContacts.Sort();
                 newContacts.Sort();
+
                 Assert.AreEqual(oldContacts, newContacts);  
              }
 

@@ -9,29 +9,34 @@ namespace addressbook_tests.tests
         [Test]
         public void TestModifyContact()
         {
-            app.NavigationHelper.ClickOnHomePageLink();
-            if (!app.ContactHelper.AreThereContacts())
+            var oldContacts = app.ContactHelper.GetContacts();
+            int contactCount = oldContacts.Count;
+            int index = new Random().Next(contactCount);
+
+            if (contactCount == 0)
             {
                 ContactData newContact = new ContactData("new_contact", "trrdfgfd");
                 app.ContactHelper.
                        InitContactCreation().
                        FillOutContactForm(newContact).
                        SubmitNewContactForm();
+                oldContacts = app.ContactHelper.GetContacts();
             }
+
             ContactData modifiedContact = new ContactData("trrragdh", "abracadabra");
-            app.NavigationHelper.ClickOnHomePageLink();
-            var oldContacts = app.ContactHelper.GetContacts();
-            int index = new Random().Next(oldContacts.Count);
             app.ContactHelper
                 .InitContactModificationByIndex(index)
                 .FillOutContactForm(modifiedContact)
                 .SubmitContactModification();
-            app.NavigationHelper.ClickOnHomePageLink();
+
+            Assert.AreEqual(contactCount, app.ContactHelper.GetContactCount());
+
+            var newContacts = app.ContactHelper.GetContacts();
             oldContacts.RemoveAt(index);
             oldContacts.Add(modifiedContact);
             oldContacts.Sort();
-            var newContacts = app.ContactHelper.GetContacts();
             newContacts.Sort();
+
             Assert.AreEqual(oldContacts, newContacts);
         }
     }

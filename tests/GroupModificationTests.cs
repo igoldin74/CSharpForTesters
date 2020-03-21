@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace addressbook_tests.tests
 {
@@ -15,19 +16,26 @@ namespace addressbook_tests.tests
                 group.Header = "test939e4";
                 group.Footer = "dsjdfd";
                 app.GroupHelper.Create(group);
+                app.NavigationHelper.OpenGroupsPage();
             }
-            app.NavigationHelper.OpenGroupsPage();
+            var oldGroups = app.GroupHelper.GetGroups();
+            int index = new Random().Next(oldGroups.Count);
             GroupData modifiedGroup = new GroupData("modified_group");
             modifiedGroup.Header = "modified_header";
             modifiedGroup.Footer = "modified_footer";
             app.GroupHelper.
-                SelectRandomGroup().
+                SelectGroupByIndex(index).
                 InitGroupModification().
                 FillOutGroupData(modifiedGroup).
                 SubmitGroupModification();
+            app.NavigationHelper.OpenGroupsPage();
+            var newGroups = app.GroupHelper.GetGroups();
+            oldGroups.RemoveAt(index);
+            oldGroups.Add(modifiedGroup);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
         
-
-
     }
 }

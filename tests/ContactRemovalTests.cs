@@ -19,10 +19,10 @@ namespace addressbook_tests.tests
                        SubmitNewContactForm();
             }
             app.NavigationHelper.ClickOnHomePageLink();
-            List<ContactData> oldContacts = app.ContactHelper.GetContacts();
+            var oldContacts = app.ContactHelper.GetContacts();
             app.ContactHelper.DeleteContactByIndex(1);
             app.NavigationHelper.ClickOnHomePageLink();
-            List<ContactData> newContacts = app.ContactHelper.GetContacts();
+            var newContacts = app.ContactHelper.GetContacts();
             oldContacts.RemoveAt(1);
             oldContacts.Sort();
             newContacts.Sort();

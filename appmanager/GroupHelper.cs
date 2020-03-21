@@ -12,12 +12,10 @@ namespace addressbook_tests
 
         public GroupHelper Create(GroupData group)
         {
-            manager.NavigationHelper.OpenGroupsPage();
             InitGroupCreation();
             FillOutGroupData(group);
             SubmitGroupCreation();
             return this;
-
         }
 
         public GroupHelper SubmitGroupCreation()

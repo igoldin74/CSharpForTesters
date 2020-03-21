@@ -14,8 +14,15 @@ namespace addressbook_tests
             GroupData group = new GroupData("Group_Name_Super");
             group.Header = "test939e4";
             group.Footer = "dsjdfd";
-            app.GroupHelper.Create(group);
             app.NavigationHelper.OpenGroupsPage();
+            var oldGroups = app.GroupHelper.GetGroups();
+            app.GroupHelper.Create(group);
+            oldGroups.Add(group);
+            app.NavigationHelper.OpenGroupsPage();
+            var newGroups = app.GroupHelper.GetGroups();
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
     }

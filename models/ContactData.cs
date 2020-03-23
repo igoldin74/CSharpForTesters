@@ -37,7 +37,12 @@ namespace addressbook_tests
             {
                 return 1;
             }
-            return (FirstName + LastName).CompareTo(other.FirstName + LastName);
+            if (this.LastName == other.LastName)
+            {
+                return this.FirstName.CompareTo(other.FirstName);
+            }
+            else
+                return other.LastName.CompareTo(this.LastName);
         }
 
         public ContactData(string firstName, string lastName)

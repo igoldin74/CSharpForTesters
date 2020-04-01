@@ -96,6 +96,39 @@ namespace addressbook_tests
             return new List<GroupData>(groupCache);
         }
 
+        // Optimized alternative to GetGroups() method:
+        public List<GroupData> GetGroupsAlt()
+        {
+            if (groupCache == null)
+            {
+                groupCache = new List<GroupData>();
+                manager.NavigationHelper.OpenGroupsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements)
+                {
+                    element.FindElement(By.TagName("input")).GetAttribute("value");
+                    groupCache.Add(new GroupData(null)
+                    {
+                        Id =
+                        int.Parse(element.FindElement(By.TagName("input")).GetAttribute("value"))
+                    });
+                }
+                string allGroupNames = driver.FindElement(By.CssSelector("div#content form")).Text;
+                string[] names = allGroupNames.Split('\n');
+                // To account for groups with blank names, we find how many have blank names:
+                int shift = groupCache.Count - names.Length;
+                for (int i = 0; i < groupCache.Count; i++)
+                {
+                    if (i < shift)
+                    {
+                        groupCache[i].Name = "";
+                    }
+                    groupCache[i].Name = names[i-shift].Trim();
+                }
+            }
+            return new List<GroupData>(groupCache);
+        }
+
         public int GetGroupCount()
         {
             manager.NavigationHelper.OpenGroupsPage();

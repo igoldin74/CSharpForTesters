@@ -18,6 +18,16 @@ namespace addressbook_tests
             return this;
         }
 
+        internal ContactData GetContactInformationFromEditForm(int v)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal ContactData GetContactInformationFromTable(int v)
+        {
+            throw new NotImplementedException();
+        }
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElements(By.CssSelector("[name = 'update']"))[1].Click();

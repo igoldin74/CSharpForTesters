@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Collections.Generic;
+using NUnit.Framework;
 
 
 namespace addressbook_tests
@@ -6,7 +7,21 @@ namespace addressbook_tests
         [TestFixture]
         public class CreateNewContactTests : AuthTestBase
         {
-            [Test]
+
+        public static IEnumerable<ContactData> RandomContactDataProvider()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                contacts.Add(new ContactData(GenerateRandomString(10), GenerateRandomString(10))
+                {
+                    Address = GenerateRandomString(20),
+                    MobilePhone = GenerateRandomString(10)
+                });
+            }
+            return contacts;
+        }
+        [Test, TestCaseSource("RandomContactDataProvider")]
             public void CreateNewContactTest()
             {
                 var oldContacts = app.ContactHelper.GetContacts();

@@ -20,7 +20,10 @@ namespace addressbook_tests.tests
         {
             ContactData fromTable = app.ContactHelper.GetContactInformationFromTable(0);
             ContactData fromViewPage = app.ContactHelper.GetContactInformationFromViewContactPage(0);
-            Assert.AreEqual(fromTable, fromViewPage);
+            Assert.AreEqual(fromTable.FullName, fromViewPage.FullName);
+            Assert.AreEqual(fromTable.MobilePhone, fromViewPage.MobilePhone);
+            Assert.AreEqual(fromTable.Address, fromViewPage.Address);
+
         }
     }
 }

@@ -56,16 +56,43 @@ namespace addressbook_tests
 
         internal ContactData GetContactInformationFromViewContactPage(int index)
         {
+            string homePhone = null;
+            string mobilePhone = null;
+            string workPhone = null;
+            string address = null;
             manager.NavigationHelper.OpenHomePage();
             OpenViewPageByIndex(index);
             string[] lines = driver.FindElement(By.CssSelector("#content")).Text.Split('\n');
-            string[] fullName = lines[0].Split(' ');
-            string address = lines[1];
-            string homePhone = lines[3];
-            string mobilePhone = lines[5];
-            string workPhone = lines[5];
-            return new ContactData(fullName[0], fullName[1])
+            string fullName = lines[0].Trim();
+            if (lines.Length == 1)
             {
+                address = "";
+            }
+            else
+            {
+                address = lines[1];
+            }
+            
+
+            foreach (string l in lines)
+            {
+                if (l.StartsWith("H:"))
+                {
+                    homePhone = l.Substring(3);
+                }
+                if (l.StartsWith("M:"))
+                {
+                    mobilePhone = l.Substring(3);
+                }
+                if (l.StartsWith("W:"))
+                {
+                    workPhone = l.Substring(3);
+                }
+            }
+
+            return new ContactData()
+            {
+                FullName = fullName,
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,

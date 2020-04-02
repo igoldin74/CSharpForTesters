@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 
 
 namespace addressbook_tests
@@ -7,11 +9,25 @@ namespace addressbook_tests
     public class CreateNewGroupTests : AuthTestBase
     {
 
-
-        [Test]
-        public void CreateNewGroup()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
-            GroupData group = new GroupData("Group_Name_Super");
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new GroupData(GenerateRandomString(30))
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
+
+
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void CreateNewGroup(GroupData group)
+        {
             group.Header = "test939e4";
             group.Footer = "dsjdfd";
 

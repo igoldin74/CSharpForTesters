@@ -62,7 +62,8 @@ namespace addressbook_tests
             manager.NavigationHelper.OpenHomePage();
             OpenViewPageByIndex(index);
             string[] lines = driver.FindElement(By.CssSelector("#content")).Text.Split('\n');
-            string fullName = lines[0].Replace(" ", "");
+            string fullName = lines[0];
+            string cleanFullName = fullName.Replace(" ", "");
             string address;
             if (lines.Length == 1)
             {
@@ -92,7 +93,7 @@ namespace addressbook_tests
 
             return new ContactData()
             {
-                FullName = fullName,
+                FullName = cleanFullName,
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,

@@ -29,7 +29,7 @@ namespace addressbook_tests
         }
         public override string ToString()
         {
-            return Name.ToString();
+            return "name=" + Name + "\nheader=" + Header + "\nfooter=" + Footer;
         }
         public int CompareTo([AllowNull] GroupData other)
         {

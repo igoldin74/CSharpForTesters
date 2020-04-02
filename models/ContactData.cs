@@ -93,13 +93,13 @@ namespace addressbook_tests
         {
             get
             {
-                if (allPhones != null)
+                if (fullName != null)
                 {
-                    return allPhones;
+                    return fullName;
                 }
                 else
                 {
-                    return (FirstName + LastName).Trim();
+                    return FirstName.Trim() + LastName.Trim();
                 }
             }
             set

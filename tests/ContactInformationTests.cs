@@ -18,10 +18,10 @@ namespace addressbook_tests.tests
         [Test]
         public void TestContactInformationFromViewPage()
         {
-            ContactData fromTable = app.ContactHelper.GetContactInformationFromTable(0);
-            ContactData fromViewPage = app.ContactHelper.GetContactInformationFromViewContactPage(0);
+            ContactData fromTable = app.ContactHelper.GetContactInformationFromTable(4);
+            ContactData fromViewPage = app.ContactHelper.GetContactInformationFromViewContactPage(4);
             Assert.AreEqual(fromTable.FullName, fromViewPage.FullName);
-            Assert.AreEqual(fromTable.MobilePhone, fromViewPage.MobilePhone);
+            Assert.AreEqual(fromTable.AllPhones, fromViewPage.AllPhones);
             Assert.AreEqual(fromTable.Address, fromViewPage.Address);
 
         }

@@ -59,11 +59,11 @@ namespace addressbook_tests
             string homePhone = null;
             string mobilePhone = null;
             string workPhone = null;
-            string address = null;
             manager.NavigationHelper.OpenHomePage();
             OpenViewPageByIndex(index);
             string[] lines = driver.FindElement(By.CssSelector("#content")).Text.Split('\n');
-            string fullName = lines[0].Trim();
+            string fullName = lines[0].Replace(" ", "");
+            string address;
             if (lines.Length == 1)
             {
                 address = "";
@@ -72,7 +72,7 @@ namespace addressbook_tests
             {
                 address = lines[1];
             }
-            
+
 
             foreach (string l in lines)
             {

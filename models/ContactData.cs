@@ -5,8 +5,8 @@ namespace addressbook_tests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstName;
-        private string lastName;
+        private string allPhones;
+        private string fullName;
 
         public bool Equals([AllowNull] ContactData other)
         {
@@ -47,13 +47,64 @@ namespace addressbook_tests
 
         public ContactData(string firstName, string lastName)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
+            this.FirstName = firstName;
+            this.LastName = lastName;
         }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Address { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkHome { get; set; }
+        public string AllPhones
+        {
+            get
+            {
+                if (AllPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkHome)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
 
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            else
+            {
+                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            }
+        }
 
+        public string FullName
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (FirstName + LastName).Trim();
+                }
+            }
+            set
+            {
+                fullName = value;
+            }
+        }
     }
 }

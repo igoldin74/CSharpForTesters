@@ -18,14 +18,59 @@ namespace addressbook_tests
             return this;
         }
 
-        internal ContactData GetContactInformationFromEditForm(int v)
+        internal ContactData GetContactInformationFromEditForm(int index)
         {
-            throw new NotImplementedException();
+            manager.NavigationHelper.OpenHomePage();
+            InitContactModificationByIndex(index);
+            string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkHome = workPhone
+            };
         }
 
-        internal ContactData GetContactInformationFromTable(int v)
+        internal ContactData GetContactInformationFromTable(int index)
         {
-            throw new NotImplementedException();
+            manager.NavigationHelper.OpenHomePage();
+            IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index]
+                .FindElements(By.TagName("td"));
+            string lastName = cells[1].Text;
+            string firstName = cells[2].Text;
+            string address = cells[3].Text;
+            string allPhones = cells[5].Text;
+            return new ContactData(firstName, lastName)
+            {
+                Address = address,
+                AllPhones = allPhones
+            };
+        }
+
+        internal ContactData GetContactInformationFromViewContactPage(int index)
+        {
+            manager.NavigationHelper.OpenHomePage();
+            OpenViewPageByIndex(index);
+            string[] lines = driver.FindElement(By.CssSelector("#content")).Text.Split('\n');
+            string[] fullName = lines[0].Split(' ');
+            string address = lines[1];
+            string homePhone = lines[3];
+            string mobilePhone = lines[5];
+            string workPhone = lines[5];
+            return new ContactData(fullName[0], fullName[1])
+            {
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkHome = workPhone,
+            };
         }
 
         public ContactHelper SubmitContactModification()
@@ -52,6 +97,13 @@ namespace addressbook_tests
         public ContactHelper InitContactModificationByIndex(int index)
         {
             var elements = driver.FindElements(By.XPath("//a[contains(@href, 'edit.php?id')]"));
+            elements[index].Click();
+            return this;
+        }
+
+        public ContactHelper OpenViewPageByIndex(int index)
+        {
+            var elements = driver.FindElements(By.XPath("//a[contains(@href, 'view.php?id')]"));
             elements[index].Click();
             return this;
         }

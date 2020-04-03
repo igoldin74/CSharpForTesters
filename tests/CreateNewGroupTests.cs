@@ -24,7 +24,6 @@ namespace addressbook_tests
         }
 
 
-
         [Test, TestCaseSource("RandomGroupDataProvider")]
         public void CreateNewGroup(GroupData group)
         {

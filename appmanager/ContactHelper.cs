@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 
 namespace addressbook_tests
@@ -28,13 +29,19 @@ namespace addressbook_tests
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string email1 = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
 
             return new ContactData(firstName, lastName)
             {
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
-                WorkHome = workPhone
+                WorkPhone = workPhone,
+                Email1 = email1,
+                Email2 = email2,
+                Email3 = email3
             };
         }
 
@@ -56,50 +63,17 @@ namespace addressbook_tests
 
         internal ContactData GetContactInformationFromViewContactPage(int index)
         {
-            string homePhone = null;
-            string mobilePhone = null;
-            string workPhone = null;
+
             manager.NavigationHelper.OpenHomePage();
             OpenViewPageByIndex(index);
-            string[] lines = driver.FindElement(By.CssSelector("#content")).Text.Split('\n');
-            string fullName = lines[0];
-            string cleanFullName = fullName.Replace(" ", "");
-            string address;
-            if (lines.Length == 1)
-            {
-                address = "";
-            }
-            else
-            {
-                address = lines[1];
-            }
+            string contactData = driver.FindElement(By.CssSelector("#content")).Text;
+            //string contactData = lines.Replace("\n", "");
+            Regex regex = new Regex("[HWM:\n ]");
+            string cleanContactData = regex.Replace(contactData, "");
 
-
-            foreach (string l in lines)
-            {
-                if (l.StartsWith("H:"))
-                {
-                    homePhone = l.Substring(3);
-                }
-                if (l.StartsWith("M:"))
-                {
-                    mobilePhone = l.Substring(3);
-                }
-                if (l.StartsWith("W:"))
-                {
-                    workPhone = l.Substring(3);
-                }
-            }
-
-            return new ContactData()
-            {
-                FullName = cleanFullName,
-                Address = address,
-                HomePhone = homePhone,
-                MobilePhone = mobilePhone,
-                WorkHome = workPhone,
-            };
+            return new ContactData(cleanContactData);
         }
+         
 
         public ContactHelper SubmitContactModification()
         {

@@ -7,6 +7,8 @@ namespace addressbook_tests
     {
         private string allPhones;
         private string fullName;
+        private string allContactDetails;
+        private string allEmails;
 
         public bool Equals([AllowNull] ContactData other)
         {
@@ -50,14 +52,20 @@ namespace addressbook_tests
             this.FirstName = firstName;
             this.LastName = lastName;
         }
-        public ContactData() { }
+        public ContactData(string infoFromViewPage)
+        {
+            this.AllContactDetails = infoFromViewPage;
+        }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
         public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
-        public string WorkHome { get; set; }
+        public string WorkPhone { get; set; }
+        public string Email1 { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
         public string AllPhones
         {
             get
@@ -68,7 +76,7 @@ namespace addressbook_tests
                 }
                 else
                 {
-                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkHome)).Trim();
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
                 }
             }
             set
@@ -76,16 +84,41 @@ namespace addressbook_tests
                 allPhones = value;
             }
         }
-
-        private string CleanUp(string phone)
+        public string AllEmails
         {
-            if (phone == null || phone == "")
+            get
             {
-                return "";
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return Email1 + Email2 + Email3;
+                }
             }
-            else
+            set
             {
-                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+                allEmails = value;
+            }
+        }
+        public string AllContactDetails
+        {
+            get
+            {
+                if (allContactDetails != null)
+                {
+                    return allContactDetails;
+                }
+                else
+                {
+                    return FirstName + LastName + Address + AllPhones + AllEmails;
+                }
+                
+            }
+            set
+            {
+                allContactDetails = value;
             }
         }
 
@@ -105,6 +138,18 @@ namespace addressbook_tests
             set
             {
                 fullName = value;
+            }
+        }
+
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            else
+            {
+                return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
             }
         }
     }

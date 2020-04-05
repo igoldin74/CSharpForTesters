@@ -1,5 +1,5 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 
 namespace addressbook_tests.tests
 {
@@ -21,7 +21,7 @@ namespace addressbook_tests.tests
                 app.GroupHelper.Create(group);
                 oldGroups = app.GroupHelper.GetGroups();
             }
-            
+
             app.GroupHelper.
                 SelectGroupByIndex(index).
                 RemoveSelectedGroup();

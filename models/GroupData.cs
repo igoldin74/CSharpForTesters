@@ -1,9 +1,10 @@
-﻿using System;
+﻿using NUnit.Framework.Internal;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace addressbook_tests
 {
-    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
+    public class GroupData : TestCaseParameters, IEquatable<GroupData>, IComparable<GroupData>
     {
         // These are fields:
         private string name;
@@ -11,7 +12,7 @@ namespace addressbook_tests
         private string footer;
 
         //Class methods:
-        public bool Equals([AllowNull] GroupData other)
+        public bool Equals(GroupData other)
         {
             if (Object.ReferenceEquals(other, null))
             {
@@ -31,7 +32,7 @@ namespace addressbook_tests
         {
             return "name=" + Name + "\nheader=" + Header + "\nfooter=" + Footer;
         }
-        public int CompareTo([AllowNull] GroupData other)
+        public int CompareTo(GroupData other)
         {
             if (Object.ReferenceEquals(other, null))
             {

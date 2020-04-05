@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 
 namespace addressbook_tests.tests
 {

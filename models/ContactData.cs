@@ -1,16 +1,17 @@
-﻿using System;
+﻿using NUnit.Framework.Internal;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace addressbook_tests
 {
-    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
+    public class ContactData : TestCaseParameters, IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
         private string fullName;
         private string allContactDetails;
         private string allEmails;
 
-        public bool Equals([AllowNull] ContactData other)
+        public bool Equals(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
             {
@@ -33,7 +34,7 @@ namespace addressbook_tests
             return FirstName.ToString();
         }
 
-        public int CompareTo([AllowNull] ContactData other)
+        public int CompareTo(ContactData other)
         {
             if (Object.ReferenceEquals(other, null))
             {
@@ -114,7 +115,7 @@ namespace addressbook_tests
                 {
                     return this.FirstName + this.LastName + this.Address + this.AllPhones + this.AllEmails;
                 }
-                
+
             }
             set
             {

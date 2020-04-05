@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
+using System.Threading;
 
 namespace addressbook_tests
 {
@@ -52,7 +52,7 @@ namespace addressbook_tests
         // application manager using our private constructor:
         public static ApplicationManager GetInstance()
         {
-            if (! app.IsValueCreated)
+            if (!app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
                 newInstance.NavigationHelper.OpenHomePage();

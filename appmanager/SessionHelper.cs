@@ -1,5 +1,4 @@
-﻿using System;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 
 namespace addressbook_tests
 {
@@ -43,7 +42,7 @@ namespace addressbook_tests
             {
                 driver.FindElement(By.LinkText("Logout")).Click();
             }
-            
+
         }
 
         public string GetLoggedUserName()

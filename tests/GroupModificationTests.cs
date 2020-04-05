@@ -1,5 +1,5 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 
 namespace addressbook_tests.tests
 {
@@ -53,6 +53,6 @@ namespace addressbook_tests.tests
                 }
             }
         }
-        
+
     }
 }

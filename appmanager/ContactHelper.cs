@@ -1,7 +1,7 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using OpenQA.Selenium;
 
 namespace addressbook_tests
 {
@@ -73,7 +73,7 @@ namespace addressbook_tests
 
             return new ContactData(cleanContactData);
         }
-         
+
 
         public ContactHelper SubmitContactModification()
         {

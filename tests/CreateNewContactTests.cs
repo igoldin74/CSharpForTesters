@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System.Collections.Generic;
 
 
 namespace addressbook_tests
 {
-        [TestFixture]
-        public class CreateNewContactTests : AuthTestBase
-        {
-
+    [TestFixture]
+    public class CreateNewContactTests : AuthTestBase
+    {
+        
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
             List<ContactData> contacts = new List<ContactData>();
@@ -22,25 +22,25 @@ namespace addressbook_tests
             return contacts;
         }
         [Test, TestCaseSource("RandomContactDataProvider")]
-            public void CreateNewContactTest()
-            {
-                var oldContacts = app.ContactHelper.GetContacts();
-                ContactData newContact = new ContactData("test_f_name", "test_l_name");
+        public void CreateNewContactTest(ContactData contact)
+        {
+            var oldContacts = app.ContactHelper.GetContacts();
+            ContactData newContact = new ContactData("test_f_name", "test_l_name");
 
-                app.ContactHelper.
-                        InitContactCreation().
-                        FillOutContactForm(newContact).
-                        SubmitNewContactForm();
+            app.ContactHelper.
+                    InitContactCreation().
+                    FillOutContactForm(contact).
+                    SubmitNewContactForm();
 
-                Assert.AreEqual(oldContacts.Count + 1, app.ContactHelper.GetContactCount());
+            Assert.AreEqual(oldContacts.Count + 1, app.ContactHelper.GetContactCount());
 
-                var newContacts = app.ContactHelper.GetContacts();
-                oldContacts.Add(newContact);
-                oldContacts.Sort();
-                newContacts.Sort();
+            var newContacts = app.ContactHelper.GetContacts();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
 
-                Assert.AreEqual(oldContacts, newContacts);  
-             }
-
+            Assert.AreEqual(oldContacts, newContacts);
         }
+
+    }
 }

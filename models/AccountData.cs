@@ -1,5 +1,4 @@
-﻿using System;
-namespace addressbook_tests
+﻿namespace addressbook_tests
 {
     public class AccountData
     {

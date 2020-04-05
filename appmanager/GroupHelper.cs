@@ -1,6 +1,6 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
-using OpenQA.Selenium;
 namespace addressbook_tests
 {
     public class GroupHelper : HelperBase
@@ -89,8 +89,11 @@ namespace addressbook_tests
                 foreach (IWebElement element in elements)
                 {
                     element.FindElement(By.TagName("input")).GetAttribute("value");
-                    groupCache.Add(new GroupData(element.Text) { Id =
-                        int.Parse(element.FindElement(By.TagName("input")).GetAttribute("value")) });
+                    groupCache.Add(new GroupData(element.Text)
+                    {
+                        Id =
+                        int.Parse(element.FindElement(By.TagName("input")).GetAttribute("value"))
+                    });
                 }
             }
             return new List<GroupData>(groupCache);
@@ -123,7 +126,7 @@ namespace addressbook_tests
                     {
                         groupCache[i].Name = "";
                     }
-                    groupCache[i].Name = names[i-shift].Trim();
+                    groupCache[i].Name = names[i - shift].Trim();
                 }
             }
             return new List<GroupData>(groupCache);

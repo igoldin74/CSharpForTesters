@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Text.RegularExpressions;
+using NUnit.Framework;
 
 namespace addressbook_tests.tests
 {
@@ -19,7 +21,9 @@ namespace addressbook_tests.tests
         public void TestContactInformationFromViewPage()
         {
             ContactData fromTable = app.ContactHelper.GetContactInformationFromTable(4);
+            Console.WriteLine(fromTable);
             ContactData fromViewPage = app.ContactHelper.GetContactInformationFromViewContactPage(4);
+            
             Assert.AreEqual(fromTable.AllContactDetails, fromViewPage.AllContactDetails);
         }
     }

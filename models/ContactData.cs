@@ -88,7 +88,7 @@ namespace addressbook_tests
         {
             get
             {
-                if (allEmails != null)
+                if (AllEmails != null)
                 {
                     return allEmails;
                 }
@@ -106,13 +106,13 @@ namespace addressbook_tests
         {
             get
             {
-                if (allContactDetails != null)
+                if (AllContactDetails != null)
                 {
                     return allContactDetails;
                 }
                 else
                 {
-                    return FirstName + LastName + Address + AllPhones + AllEmails;
+                    return this.FirstName + this.LastName + this.Address + this.AllPhones + this.AllEmails;
                 }
                 
             }
@@ -126,7 +126,7 @@ namespace addressbook_tests
         {
             get
             {
-                if (fullName != null)
+                if (FullName != null)
                 {
                     return fullName;
                 }

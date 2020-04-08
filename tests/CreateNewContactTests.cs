@@ -8,19 +8,18 @@ namespace addressbook_tests
     public class CreateNewContactTests : AuthTestBase
     {
         
-        public static IEnumerable<ContactData> RandomContactDataProvider()
+        public static IEnumerable<TestCaseData> RandomContactDataProvider()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 2; i++)
             {
-                contacts.Add(new ContactData(GenerateRandomString(10), GenerateRandomString(10))
+                yield return new TestCaseData(new ContactData(GenerateRandomString(6), GenerateRandomString(6))
                 {
-                    Address = GenerateRandomString(20),
-                    MobilePhone = GenerateRandomString(10)
+                    Address = GenerateRandomString(5),
+                    MobilePhone = GenerateRandomString(5)
                 });
             }
-            return contacts;
         }
+
         [Test, TestCaseSource("RandomContactDataProvider")]
         public void CreateNewContactTest(ContactData contact)
         {

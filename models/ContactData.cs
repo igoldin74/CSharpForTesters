@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace addressbook_tests
 {
-    public class ContactData : TestCaseParameters, IEquatable<ContactData>, IComparable<ContactData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string allPhones;
         private string fullName;
@@ -71,7 +71,7 @@ namespace addressbook_tests
         {
             get
             {
-                if (AllPhones != null)
+                if (allPhones != null)
                 {
                     return allPhones;
                 }
@@ -89,7 +89,7 @@ namespace addressbook_tests
         {
             get
             {
-                if (AllEmails != null)
+                if (allEmails != null)
                 {
                     return allEmails;
                 }
@@ -107,7 +107,7 @@ namespace addressbook_tests
         {
             get
             {
-                if (AllContactDetails != null)
+                if (allContactDetails != null)
                 {
                     return allContactDetails;
                 }
@@ -127,7 +127,7 @@ namespace addressbook_tests
         {
             get
             {
-                if (FullName != null)
+                if (fullName != null)
                 {
                     return fullName;
                 }

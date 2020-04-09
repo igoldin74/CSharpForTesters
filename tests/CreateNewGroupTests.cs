@@ -25,7 +25,7 @@ namespace addressbook_tests
             return groups;
         }
         
-        public static IEnumerable<TestCaseData> GroupDataFromCsvFile()
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
             string[] lines = File.ReadAllLines(@"group.csv");
@@ -38,21 +38,21 @@ namespace addressbook_tests
                     Footer = parts[2]
                 });
             }
-            yield return new TestCaseData(groups);
+            return groups;
         }
 
-        public static IEnumerable<TestCaseData> GroupDataFromXmlFile()
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
         {
-            yield return new TestCaseData((List<GroupData>) new XmlSerializer(typeof(List<GroupData>))
-                .Deserialize(new StreamReader(@"groups.xml")));
+            return (List<GroupData>) new XmlSerializer(typeof(List<GroupData>))
+                .Deserialize(new StreamReader(@"groups.xml"));
         }
 
-        public static IEnumerable<TestCaseData> GroupDataFromJsonFile()
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
-            yield return new TestCaseData(JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json")));
+            return new List<GroupData>(JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json")));
         }
 
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void CreateNewGroup(GroupData group)
         {
             var oldGroups = app.GroupHelper.GetGroups();

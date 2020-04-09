@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Internal;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace addressbook_tests
@@ -56,6 +55,9 @@ namespace addressbook_tests
         public ContactData(string infoFromViewPage)
         {
             this.AllContactDetails = infoFromViewPage;
+        }
+        public ContactData()
+        {
         }
 
         public string FirstName { get; set; }

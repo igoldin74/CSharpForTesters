@@ -1,5 +1,4 @@
-﻿using NUnit.Framework.Internal;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace addressbook_tests

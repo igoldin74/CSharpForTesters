@@ -21,9 +21,9 @@ namespace addressbook_tests
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < l; i++)
             {
-                builder.Append(("T" + Convert.ToInt32(rnd.NextDouble()*223)));
+                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 20)));
             }
-            return builder.ToString().Substring(0, max);
+            return builder.ToString();
         }
 
         public static Random rnd = new Random();

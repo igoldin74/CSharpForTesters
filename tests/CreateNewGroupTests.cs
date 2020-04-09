@@ -1,6 +1,10 @@
 ﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
+using Newtonsoft.Json;
+
 
 namespace addressbook_tests
 {
@@ -19,7 +23,9 @@ namespace addressbook_tests
                 });
             }
             return groups;
-        }public static IEnumerable<GroupData> GroupDataFromFile()
+        }
+        
+        public static IEnumerable<TestCaseData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
             string[] lines = File.ReadAllLines(@"group.csv");
@@ -32,11 +38,21 @@ namespace addressbook_tests
                     Footer = parts[2]
                 });
             }
-            return groups;
-
+            yield return new TestCaseData(groups);
         }
 
-        [Test, TestCaseSource(nameof(GroupDataFromFile))]
+        public static IEnumerable<TestCaseData> GroupDataFromXmlFile()
+        {
+            yield return new TestCaseData((List<GroupData>) new XmlSerializer(typeof(List<GroupData>))
+                .Deserialize(new StreamReader(@"groups.xml")));
+        }
+
+        public static IEnumerable<TestCaseData> GroupDataFromJsonFile()
+        {
+            yield return new TestCaseData(JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json")));
+        }
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void CreateNewGroup(GroupData group)
         {
             var oldGroups = app.GroupHelper.GetGroups();

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "addressbook-tests": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\eli.goldin\\source\\repos\\igoldin74\\CSharpForTesters"
+    }
+  }
+}

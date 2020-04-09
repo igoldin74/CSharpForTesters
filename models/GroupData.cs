@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace addressbook_tests
 {
-    public class GroupData : TestCaseParameters, IEquatable<GroupData>, IComparable<GroupData>
+    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         // These are fields:
         private string name;
@@ -48,7 +48,13 @@ namespace addressbook_tests
             this.name = name;
         }
 
-        // These are properties: 
+        public GroupData()
+        {
+        }
+
+        // These are properties:
+        // Auto-property (private field is unnecessary):
+        public int Id { get; set; }
         public string Name
         {
             get
@@ -84,9 +90,6 @@ namespace addressbook_tests
                 footer = value;
             }
         }
-
-        // Auto-property (private field is unnecessary):
-        public int Id { get; set; }
 
     }
 }

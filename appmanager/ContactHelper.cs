@@ -71,7 +71,7 @@ namespace addressbook_tests
             Regex regex = new Regex("[HWM:\n ]");
             string cleanContactData = regex.Replace(contactData, "");
 
-            return new ContactData(cleanContactData);
+            return new ContactData(contactData);
         }
 
 

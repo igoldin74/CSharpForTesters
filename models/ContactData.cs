@@ -30,7 +30,15 @@ namespace addressbook_tests
 
         public override string ToString()
         {
-            return FirstName.ToString();
+            if (FirstName == null)
+            {
+                return AllContactDetails.ToString();
+            }
+            else
+            {
+                return FirstName.ToString();
+            }
+            
         }
 
         public int CompareTo(ContactData other)
@@ -115,7 +123,14 @@ namespace addressbook_tests
                 }
                 else
                 {
-                    return this.FirstName + this.LastName + this.Address + this.AllPhones + this.AllEmails;
+                    return this.FirstName + " " + this.LastName + "\r\n" +
+                        this.Address + "\r\n" + "\r\n" + 
+                        "H: " + this.HomePhone + "\r\n" +
+                        "M: " + this.MobilePhone + "\r\n" +
+                        "W: " + this.WorkPhone + "\r\n" + "\r\n" +
+                        this.Email1 + "\r\n" +
+                        this.Email2 + "\r\n" +
+                        this.Email3;
                 }
 
             }

@@ -7,7 +7,7 @@ namespace addressbook_tests
     public class TestSuiteFixture
     {
         // Used in place of destructor until further notice.
-        [OneTimeTearDown]
+        [TearDown]
         public void StopAppManager()
         {
             ApplicationManager.GetInstance().SessionHelper.Logout();

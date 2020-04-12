@@ -20,8 +20,8 @@ namespace addressbook_tests.tests
         [Test]
         public void TestContactInformationFromViewPage()
         {
-            ContactData fromeditPage = app.ContactHelper.GetContactInformationFromEditForm(4);
-            ContactData fromViewPage = app.ContactHelper.GetContactInformationFromViewContactPage(4);
+            ContactData fromeditPage = app.ContactHelper.GetContactInformationFromEditForm(2);
+            ContactData fromViewPage = app.ContactHelper.GetContactInformationFromViewContactPage(2);
             Assert.AreEqual(fromeditPage.AllContactDetails, fromViewPage.AllContactDetails);
         }
     }

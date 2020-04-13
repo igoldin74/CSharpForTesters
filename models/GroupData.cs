@@ -1,8 +1,10 @@
-﻿using System;
+﻿using LinqToDB.Mapping;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace addressbook_tests
 {
+    [Table(Name = "group_list")]
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         // These are fields:
@@ -53,7 +55,9 @@ namespace addressbook_tests
 
         // These are properties:
         // Auto-property (private field is unnecessary):
+        [Column(Name = "group_id"), PrimaryKey, Identity]
         public int Id { get; set; }
+        [Column(Name = "group_name"), NotNull]
         public string Name
         {
             get
@@ -65,7 +69,7 @@ namespace addressbook_tests
                 name = value;
             }
         }
-
+        [Column(Name = "group_header"), NotNull]
         public string Header
         {
             get
@@ -77,7 +81,7 @@ namespace addressbook_tests
                 header = value;
             }
         }
-
+        [Column(Name = "group_footer"), NotNull]
         public string Footer
         {
             get

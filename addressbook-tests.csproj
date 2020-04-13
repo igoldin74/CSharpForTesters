@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="linq2db.MySql" Version="2.9.7" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="nunit" Version="2.6.7" />
     <PackageReference Include="NUnit.Engine" Version="3.11.1" />
@@ -35,8 +36,6 @@
 
   <ItemGroup>
     <Folder Include="tests\" />
-    <Folder Include="appmanager\" />
-    <Folder Include="models\" />
   </ItemGroup>
 
   <ItemGroup>

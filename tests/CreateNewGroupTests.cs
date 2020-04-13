@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using System.Xml;
+using System.Linq;
 using Newtonsoft.Json;
-
+using System;
 
 namespace addressbook_tests
 {
     [TestFixture]
-    public class CreateNewGroupTests : AuthTestBase
+    public class CreateNewGroupTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -55,14 +55,15 @@ namespace addressbook_tests
         [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void CreateNewGroup(GroupData group)
         {
-            var oldGroups = app.GroupHelper.GetGroups();
+            var oldGroups = app.GroupHelper.GetGroupsFromDB();
 
+            app.NavigationHelper.OpenGroupsPage();
             app.GroupHelper.Create(group);
 
             Assert.AreEqual(oldGroups.Count + 1, app.GroupHelper.GetGroupCount());
 
             oldGroups.Add(group);
-            var newGroups = app.GroupHelper.GetGroups();
+            var newGroups = app.GroupHelper.GetGroupsFromDB();
             oldGroups.Sort();
             newGroups.Sort();
 
@@ -75,6 +76,22 @@ namespace addressbook_tests
                     Assert.Pass("Name of the new group exists in the group list");
                 }
             }
+        }
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            var fromUi = app.GroupHelper.GetGroups();
+            DateTime end = DateTime.Now;
+            Console.WriteLine("UI time = " + end.Subtract(start));
+
+            start = DateTime.Now;
+            
+            var fromDb = app.GroupHelper.GetGroupsFromDB();
+            end = DateTime.Now;
+            Console.Out.WriteLine("DB time = " + end.Subtract(start));
+            Assert.AreEqual(fromUi, fromDb);
+            
         }
 
     }

@@ -9,9 +9,10 @@ namespace addressbook_tests.tests
         [Test]
         public void TestModifyRandomGroup()
         {
-            var oldGroups = app.GroupHelper.GetGroups();
+            app.NavigationHelper.OpenGroupsPage();
+            var oldGroups = app.GroupHelper.GetGroupsFromDB();
             int groupCount = oldGroups.Count;
-            int index = new Random().Next(groupCount);
+            //int index = new Random().Next(groupCount);
 
             if (groupCount == 0)
             {
@@ -26,18 +27,18 @@ namespace addressbook_tests.tests
             GroupData modifiedGroup = new GroupData("modified_group");
             modifiedGroup.Header = "modified_header";
             modifiedGroup.Footer = "modified_footer";
-            GroupData groupToBeModified = oldGroups[index];
+            GroupData groupToBeModified = oldGroups[0];
 
             app.GroupHelper.
-                SelectGroupByIndex(index).
+                SelectGroupById(groupToBeModified.Id).
                 InitGroupModification().
                 FillOutGroupData(modifiedGroup).
                 SubmitGroupModification();
 
             Assert.AreEqual(groupCount, app.GroupHelper.GetGroupCount());
 
-            var newGroups = app.GroupHelper.GetGroups();
-            oldGroups.RemoveAt(index);
+            var newGroups = app.GroupHelper.GetGroupsFromDB();
+            oldGroups.RemoveAt(0);
             oldGroups.Add(modifiedGroup);
             oldGroups.Sort();
             newGroups.Sort();

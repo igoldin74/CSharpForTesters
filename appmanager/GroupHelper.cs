@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 namespace addressbook_tests
 {
@@ -49,6 +50,12 @@ namespace addressbook_tests
         public GroupHelper SelectGroupByIndex(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroupById(int id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
             return this;
         }
 
@@ -130,6 +137,15 @@ namespace addressbook_tests
                 }
             }
             return new List<GroupData>(groupCache);
+        }
+
+        public List<GroupData> GetGroupsFromDB()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups select g).ToList();               
+            }
+
         }
 
         public int GetGroupCount()

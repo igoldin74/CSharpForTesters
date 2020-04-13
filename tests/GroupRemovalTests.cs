@@ -4,14 +4,14 @@ using System;
 namespace addressbook_tests.tests
 {
     [TestFixture]
-    public class GroupRemovalTests : AuthTestBase
+    public class GroupRemovalTests : GroupTestBase
     {
         [Test]
         public void TestGroupRemoval()
         {
-            var oldGroups = app.GroupHelper.GetGroups();
+            var oldGroups = app.GroupHelper.GetGroupsFromDB();
             int oldGroupsCount = oldGroups.Count;
-            int index = new Random().Next(oldGroupsCount);
+            var toBeRemoved = oldGroups[0];
 
             if (oldGroupsCount == 0)
             {
@@ -21,16 +21,15 @@ namespace addressbook_tests.tests
                 app.GroupHelper.Create(group);
                 oldGroups = app.GroupHelper.GetGroups();
             }
-
+            app.NavigationHelper.OpenGroupsPage();
             app.GroupHelper.
-                SelectGroupByIndex(index).
+                SelectGroupById(toBeRemoved.Id).
                 RemoveSelectedGroup();
 
             Assert.AreEqual(oldGroupsCount - 1, app.GroupHelper.GetGroupCount());
 
-            var newGroups = app.GroupHelper.GetGroups();
-            GroupData toBeRemoved = oldGroups[index];
-            oldGroups.RemoveAt(index);
+            var newGroups = app.GroupHelper.GetGroupsFromDB();
+            oldGroups.RemoveAt(0);
             oldGroups.Sort();
             newGroups.Sort();
 

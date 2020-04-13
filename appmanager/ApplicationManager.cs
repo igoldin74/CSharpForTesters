@@ -23,6 +23,7 @@ namespace addressbook_tests
         public GroupHelper GroupHelper { get => groupHelper; }
         public IWebDriver Driver { get => driver; }
         public string BaseURL { get => baseURL; }
+        public object Groups { get; internal set; }
 
         // Making constructor method private:
         private ApplicationManager()

@@ -9,9 +9,10 @@ namespace addressbook_tests.tests
         [Test]
         public void TestModifyContact()
         {
-            var oldContacts = app.ContactHelper.GetContacts();
+            var oldContacts = app.ContactHelper.GetContactsFromDB();
+            var contactToBeModified = oldContacts[0];
             int contactCount = oldContacts.Count;
-            int index = new Random().Next(contactCount);
+            //int index = new Random().Next(contactCount);
 
             if (contactCount == 0)
             {
@@ -25,14 +26,14 @@ namespace addressbook_tests.tests
 
             ContactData modifiedContact = new ContactData("trrragdh", "abracadabra");
             app.ContactHelper
-                .InitContactModificationByIndex(index)
+                .InitContactModificationById(contactToBeModified.Id)
                 .FillOutContactForm(modifiedContact)
                 .SubmitContactModification();
 
             Assert.AreEqual(contactCount, app.ContactHelper.GetContactCount());
 
             var newContacts = app.ContactHelper.GetContacts();
-            oldContacts.RemoveAt(index);
+            oldContacts.RemoveAt(0);
             oldContacts.Add(modifiedContact);
             oldContacts.Sort();
             newContacts.Sort();

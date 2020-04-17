@@ -57,7 +57,7 @@ namespace addressbook_tests
         [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void CreateNewContactTest(ContactData contact)
         {
-            var oldContacts = app.ContactHelper.GetContacts();
+            var oldContacts = app.ContactHelper.GetContactsFromDB();
             ContactData newContact = new ContactData("test_f_name", "test_l_name");
 
             app.ContactHelper.

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace addressbook_tests
 {
@@ -74,6 +75,15 @@ namespace addressbook_tests
             return new ContactData(contactData);
         }
 
+        public List<ContactData> GetContactsFromDB()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts select c).ToList();
+            }
+
+        }
+
 
         public ContactHelper SubmitContactModification()
         {
@@ -103,6 +113,12 @@ namespace addressbook_tests
             return this;
         }
 
+        public ContactHelper InitContactModificationById(int id)
+        {
+            driver.FindElement(By.XPath(String.Format("//a[contains(@href, 'edit.php?id={0}')]", id))).Click();
+            return this;
+        }
+
         public ContactHelper OpenViewPageByIndex(int index)
         {
             var elements = driver.FindElements(By.XPath("//a[contains(@href, 'view.php?id')]"));
@@ -124,6 +140,12 @@ namespace addressbook_tests
             return this;
         }
 
+        public ContactHelper SelectContactById(int id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
+
         public ContactHelper DeleteRandomContact()
         {
             SelectRandomContact();
@@ -136,6 +158,15 @@ namespace addressbook_tests
         public ContactHelper DeleteContactByIndex(int index)
         {
             SelectContactByIndex(index);
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            contactCache = null;
+            return this;
+        }
+
+        public ContactHelper DeleteContactById(int id)
+        {
+            SelectContactById(id);
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             contactCache = null;

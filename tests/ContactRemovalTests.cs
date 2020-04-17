@@ -9,9 +9,9 @@ namespace addressbook_tests.tests
         [Test]
         public void TestRemoveRandomContact()
         {
-            var oldContacts = app.ContactHelper.GetContacts();
+            var oldContacts = app.ContactHelper.GetContactsFromDB();
             int contactCount = oldContacts.Count;
-            int index = new Random().Next(contactCount);
+            var contactToBeRemoved = oldContacts[0];
 
             if (contactCount == 0)
             {
@@ -23,12 +23,12 @@ namespace addressbook_tests.tests
                 oldContacts = app.ContactHelper.GetContacts();
             }
 
-            app.ContactHelper.DeleteContactByIndex(index);
+            app.ContactHelper.DeleteContactById(contactToBeRemoved.Id);
 
             Assert.AreEqual(contactCount - 1, app.ContactHelper.GetContactCount());
 
             var newContacts = app.ContactHelper.GetContacts();
-            oldContacts.RemoveAt(index);
+            oldContacts.RemoveAt(0);
             oldContacts.Sort();
             newContacts.Sort();
 

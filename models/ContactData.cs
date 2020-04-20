@@ -98,6 +98,8 @@ namespace addressbook_tests
 
         [Column(Name = "email3")]
         public string Email3 { get; set; }
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
         public string AllPhones
         {
             get

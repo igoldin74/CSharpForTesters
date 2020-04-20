@@ -13,6 +13,6 @@ namespace addressbook_tests
 
         public ITable<GroupData> Groups { get { return GetTable<GroupData>(); } }
         public ITable<ContactData> Contacts { get { return GetTable<ContactData>(); } }
-
+        public ITable<GroupContactRelation> GetContactRelation { get { return GetTable<GroupContactRelation>(); } }
     }
 }

@@ -80,18 +80,11 @@ namespace addressbook_tests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            var fromUi = app.GroupHelper.GetGroups();
-            DateTime end = DateTime.Now;
-            Console.WriteLine("UI time = " + end.Subtract(start));
-
-            start = DateTime.Now;
-            
-            var fromDb = app.GroupHelper.GetGroupsFromDB();
-            end = DateTime.Now;
-            Console.Out.WriteLine("DB time = " + end.Subtract(start));
-            Assert.AreEqual(fromUi, fromDb);
-            
+            var contacts = app.GroupHelper.GetContactsInGroup(app.GroupHelper.GetGroupsFromDB()[0].Id);
+            foreach(ContactData c in contacts)
+            {
+                Console.WriteLine(c.FirstName);
+            }
         }
 
     }

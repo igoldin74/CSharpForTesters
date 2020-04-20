@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
+using OpenQA.Selenium.Support.UI;
 
 namespace addressbook_tests
 {
@@ -46,6 +47,47 @@ namespace addressbook_tests
             };
         }
 
+        internal void RemoveContactFromGroup(GroupData groupData, ContactData contactToBeRemoved)
+        {
+            SelectGroupToRemoveFrom(groupData.Name);
+            SelectContactById(contactToBeRemoved.Id);
+            driver.FindElement(By.Name("remove")).Click();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+
+        }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.NavigationHelper.OpenHomePage();
+            ClearGroupFilter();
+            SelectGroupToAdd(group.Name);
+            SelectContactById(contact.Id);
+            SubmitAddContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void SubmitAddContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        private void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        private void SelectGroupToRemoveFrom(string groupName)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(groupName);
+        }
+
         internal ContactData GetContactInformationFromTable(int index)
         {
             manager.NavigationHelper.OpenHomePage();
@@ -79,7 +121,9 @@ namespace addressbook_tests
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from c in db.Contacts select c).ToList();
+                return (from c in db.Contacts
+                        .Where(x => x.Deprecated == "0000-00-00 00:00:00") select c)
+                        .ToList();
             }
 
         }

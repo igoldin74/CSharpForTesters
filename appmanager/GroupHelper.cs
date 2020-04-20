@@ -148,6 +148,30 @@ namespace addressbook_tests
 
         }
 
+        public List<ContactData> GetContactsInGroup(int groupId)
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts from g in db.GetContactRelation
+                        .Where(p => p.GroupId == groupId
+                        && p.ContactId == c.Id
+                        && c.Deprecated == "0000-00-00 00:00:00") select c)
+                        .Distinct().ToList();
+            }
+
+        }
+
+        public List<GroupData> GetGroupsWithContacts()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups
+                        from c in db.GetContactRelation
+                        .Where(p => p.GroupId == g.Id)
+                        select g).Distinct().ToList();
+            }
+        }
+
         public int GetGroupCount()
         {
             manager.NavigationHelper.OpenGroupsPage();

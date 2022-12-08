@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="linq2db.MySql" Version="2.9.7" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="nunit" Version="2.6.7" />
     <PackageReference Include="NUnit.Engine" Version="3.11.1" />
     <PackageReference Include="NUnit.Engine.Api" Version="3.11.1" />
